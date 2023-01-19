@@ -104,6 +104,7 @@ export const Board = () => {
                                 handleUpdateBoard={handleUpdateBoard}
                                 index={index}
                                 key={index}
+                                turn={turn}
                             >
                                 {squareValue}
                             </Square>
