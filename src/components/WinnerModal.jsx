@@ -30,9 +30,9 @@ export const WinnerModal = ({
                         Player{' '}
                         <Text
                             as="span"
-                            color={turn === 'x' ? '#DF367C' : '#0EA5E9'}
+                            color={turn === '❌' ? '#DF367C' : '#0EA5E9'}
                         >
-                            {turn === 'o' ? 'X' : 'O'}
+                            {turn === '⚪' ? '❌' : '⚪'}
                         </Text>{' '}
                         wins!
                     </Heading>

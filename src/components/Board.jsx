@@ -19,15 +19,17 @@ export const Board = () => {
 
     const handleUpdateBoard = (index) => {
         if (board[index] !== null || winner === true) return;
+
         const newBoard = [...board];
         newBoard[index] = turn;
         setBoard(newBoard);
 
-        const newTurn = turn === 'x' ? 'o' : 'x';
+        const newTurn = turn === '❌' ? '⚪' : '❌';
         setTurn(newTurn);
 
         const newWinner = handleWinner(newBoard);
         const draw = newBoard.every((square) => square !== null);
+
         if (newWinner) {
             // Winner
             setWinner(true);
@@ -48,18 +50,19 @@ export const Board = () => {
                 return newBoard[a];
             }
         }
+
         return null;
     };
 
     const handleNewGame = (winner, turn) => {
         if (winner) {
-            const getWinner = turn === 'x' ? 'o' : 'x';
+            const getWinner = turn === '❌' ? '⚪' : '❌';
             const newAmountOfWins = [...amountOfWins];
-            if (getWinner === 'x') {
-                newAmountOfWins.push('x');
+            if (getWinner === '❌') {
+                newAmountOfWins.push('❌');
                 setAmountOfWins([...newAmountOfWins]);
             } else {
-                newAmountOfWins.push('o');
+                newAmountOfWins.push('⚪');
                 setAmountOfWins(newAmountOfWins);
             }
             setBoard(Array(9).fill(null));
@@ -70,9 +73,10 @@ export const Board = () => {
         setTurn(TURNS.x);
         setWinner(null);
     };
-    const totalOfWinsFromX = amountOfWins.filter((x) => x === 'x').length;
+    const totalOfWinsFromX = amountOfWins.filter((x) => x === '❌').length;
 
-    const totalOfWinsFromO = amountOfWins.filter((o) => o === 'o').length;
+    const totalOfWinsFromO = amountOfWins.filter((o) => o === '⚪').length;
+
     return (
         <Box
             bg={winner !== null ? '#304E4F' : '#1FB2A7'}
@@ -84,13 +88,15 @@ export const Board = () => {
                 color="white"
                 height="100vh"
                 justifyContent="center"
-                spacing="24"
+                spacing="10"
             >
                 <Heading color="white" fontSize="5xl" fontWeight="bold">
                     TIC TAC TOE
                 </Heading>
-                <Heading>player X: {totalOfWinsFromX}</Heading>
-                <Heading>player O: {totalOfWinsFromO}</Heading>
+                <Stack>
+                    <Heading>Player ❌: {totalOfWinsFromX}</Heading>
+                    <Heading>Player ⚪: {totalOfWinsFromO}</Heading>
+                </Stack>
                 <Grid gridTemplateColumns="repeat(3, 1fr)">
                     {board.map((squareValue, index) => {
                         return (
@@ -108,7 +114,7 @@ export const Board = () => {
                     Turn :{' '}
                     <Text
                         as="span"
-                        bg={turn === 'x' ? '#DF367C' : '#0EA5E9'}
+                        bg={turn === '❌' ? '#DF367C' : '#0EA5E9'}
                         borderRadius="4px"
                         p="4px 24px 8px"
                     >
