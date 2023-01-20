@@ -1,5 +1,7 @@
 export const TURNS = { x: '❌', o: '⚪' };
 
+export const PLAYER_OR_IA = { player: 'player', ia: 'ia' };
+
 export const WINNING_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],

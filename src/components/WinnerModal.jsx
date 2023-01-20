@@ -20,7 +20,7 @@ export const WinnerModal = ({
                 justifyContent={['space-evenly', 'center']}
                 position="absolute"
                 top={['35%']}
-                width={['80vw', '30vw']}
+                width={['90vw', '80vw', '30vw']}
                 zIndex="15"
             >
                 {/* eslint-disable-next-line */}

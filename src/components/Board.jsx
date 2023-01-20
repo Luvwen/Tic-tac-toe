@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react';
-import { TURNS, WINNING_COMBINATIONS } from '../constants/constants';
+import {
+    PLAYER_OR_IA,
+    TURNS,
+    WINNING_COMBINATIONS,
+} from '../constants/constants';
 import { Square } from './Square';
 import { WinnerModal } from './WinnerModal';
+import { SelectOponentModal } from './SelectOponentModal';
 
 export const Board = () => {
     const [board, setBoard] = useState(Array(9).fill(null));
     const [turn, setTurn] = useState(TURNS.x);
     const [winner, setWinner] = useState(null);
     const [amountOfWins, setAmountOfWins] = useState([]);
+    const [openSelectPlayerModal, setOpenSelectPlayerModal] = useState(true);
+    const [playerOrIa, setPlayerOrIa] = useState(PLAYER_OR_IA.player);
 
     const handleResetGame = () => {
         setBoard(Array(9).fill(null));
         setTurn(TURNS.x);
         setWinner(null);
         setAmountOfWins([]);
+        setPlayerOrIa(PLAYER_OR_IA.player);
+        setOpenSelectPlayerModal(true);
     };
-
+    console.log(playerOrIa);
     const handleUpdateBoard = (index) => {
         if (board[index] !== null || winner === true) return;
 
@@ -87,7 +96,7 @@ export const Board = () => {
         <Box
             bg={winner !== null ? '#304E4F' : '#1FB2A7'}
             height="100vh"
-            overflow="hidden"
+            overflowY="hidden"
             width="100vw"
         >
             <Stack
@@ -95,14 +104,14 @@ export const Board = () => {
                 color="white"
                 height="100vh"
                 justifyContent="center"
-                spacing={['5', '10']}
+                spacing={['5', '10', '2', '10']}
             >
                 <Stack
                     color="white"
                     direction="row"
                     fontSize={['3xl', '5xl']}
                     fontWeight="bold"
-                    pb="25px"
+                    pb={['25px', '25px', '0', '25px']}
                 >
                     <Text color="#DF367C">TIC</Text>
                     <Text color="#FF506E">-</Text>
@@ -111,7 +120,7 @@ export const Board = () => {
                     <Text color="#F29559">TOE</Text>
                 </Stack>
                 <Stack alignItems="center" direction={['column']}>
-                    <Stack direction={['row']} spacing={['7', '10']}>
+                    <Stack direction={['row']} spacing={['3', '7', '10']}>
                         <Heading fontSize={['2xl', '3xl']} mb={'0'}>
                             Player ❌: {totalOfWinsFromX}
                         </Heading>
@@ -119,7 +128,10 @@ export const Board = () => {
                             Player ⚪: {totalOfWinsFromO}
                         </Heading>
                     </Stack>
-                    <Heading fontSize={['2xl', '3xl']} pb={['30px', '0']}>
+                    <Heading
+                        fontSize={['2xl', '3xl']}
+                        pb={['30px', '30px', '10px', '0']}
+                    >
                         Draws 🤷‍♂️: {totalOfDraws}
                     </Heading>
                 </Stack>
@@ -137,7 +149,10 @@ export const Board = () => {
                         );
                     })}
                 </Grid>
-                <Heading>
+                <Heading
+                    pb={['0', '0', '20px', '0']}
+                    pt={['0', '0', '15px', '0']}
+                >
                     Turn :{' '}
                     <Text
                         as="span"
@@ -148,21 +163,18 @@ export const Board = () => {
                         {turn}
                     </Text>
                 </Heading>
-                {/* <Button
-                    _hover={{ background: '#DF367C' }}
-                    bg="#0EA5E9"
-                    height="50px"
-                    onClick={() => handleResetGame()}
-                    width="150px"
-                >
-                    Reset
-                </Button> */}
                 <WinnerModal
                     handleNewGame={handleNewGame}
                     handleResetGame={handleResetGame}
                     turn={turn}
                     winner={winner}
                 />
+                {openSelectPlayerModal && (
+                    <SelectOponentModal
+                        setOpenSelectPlayerModal={setOpenSelectPlayerModal}
+                        setPlayerOrIa={setPlayerOrIa}
+                    />
+                )}
             </Stack>
         </Box>
     );
