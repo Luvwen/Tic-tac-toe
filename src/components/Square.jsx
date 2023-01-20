@@ -21,17 +21,23 @@ export const Square = ({ children, index, handleUpdateBoard, turn }) => {
             borderWidth={styles[index]}
             cursor="pointer"
             display="flex"
-            fontSize="6xl"
-            height="150px"
+            fontSize="5xl"
+            height={['100px', '150px']}
             justifyContent="center"
             key={index}
             onClick={() => {
                 handleUpdateBoard(index);
                 setHover(false);
             }}
-            onMouseEnter={() => setHover(true)}
+            onMouseEnter={() => {
+                if (children === null) {
+                    setHover(true);
+                } else {
+                    setHover(false);
+                }
+            }}
             onMouseLeave={() => setHover(false)}
-            width="150px"
+            width={['100px', '150px']}
         >
             {hover ? turn : children}
         </Box>
