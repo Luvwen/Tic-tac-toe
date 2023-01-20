@@ -25,7 +25,7 @@ export const WinnerModal = ({
             >
                 {/* eslint-disable-next-line */}
                 {!winner ? (
-                    <Heading>Draw!</Heading>
+                    <Heading pb={['0', '55px']}>Draw!</Heading>
                 ) : (
                     <Heading pb={['0', '55px']}>
                         Player{' '}
