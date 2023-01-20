@@ -61,10 +61,14 @@ export const Board = () => {
             if (getWinner === '❌') {
                 newAmountOfWins.push('❌');
                 setAmountOfWins([...newAmountOfWins]);
-            } else {
+            } else if (getWinner === '⚪') {
                 newAmountOfWins.push('⚪');
                 setAmountOfWins(newAmountOfWins);
             }
+        } else {
+            const newAmountOfDraws = [...amountOfWins];
+            newAmountOfDraws.push('draw');
+            setAmountOfWins(newAmountOfDraws);
             setBoard(Array(9).fill(null));
             setTurn(TURNS.x);
             setWinner(null);
@@ -77,10 +81,13 @@ export const Board = () => {
 
     const totalOfWinsFromO = amountOfWins.filter((o) => o === '⚪').length;
 
+    const totalOfDraws = amountOfWins.filter((draw) => draw === 'draw').length;
+
     return (
         <Box
             bg={winner !== null ? '#304E4F' : '#1FB2A7'}
             height="100vh"
+            overflow="hidden"
             width="100vw"
         >
             <Stack
@@ -88,14 +95,33 @@ export const Board = () => {
                 color="white"
                 height="100vh"
                 justifyContent="center"
-                spacing="10"
+                spacing={['5', '10']}
             >
-                <Heading color="white" fontSize="5xl" fontWeight="bold">
-                    TIC TAC TOE
-                </Heading>
-                <Stack>
-                    <Heading>Player ❌: {totalOfWinsFromX}</Heading>
-                    <Heading>Player ⚪: {totalOfWinsFromO}</Heading>
+                <Stack
+                    color="white"
+                    direction="row"
+                    fontSize={['3xl', '5xl']}
+                    fontWeight="bold"
+                    pb="25px"
+                >
+                    <Text color="#DF367C">TIC</Text>
+                    <Text color="#FF506E">-</Text>
+                    <Text color="#642CA9">TAC</Text>
+                    <Text color="#FF506E">-</Text>
+                    <Text color="#F29559">TOE</Text>
+                </Stack>
+                <Stack alignItems="center" direction={['column']}>
+                    <Stack direction={['row']} spacing={['7', '10']}>
+                        <Heading fontSize={['2xl', '3xl']} mb={'0'}>
+                            Player ❌: {totalOfWinsFromX}
+                        </Heading>
+                        <Heading fontSize={['2xl', '3xl']} mb={'0'}>
+                            Player ⚪: {totalOfWinsFromO}
+                        </Heading>
+                    </Stack>
+                    <Heading fontSize={['2xl', '3xl']} pb={['30px', '0']}>
+                        Draws 🤷‍♂️: {totalOfDraws}
+                    </Heading>
                 </Stack>
                 <Grid gridTemplateColumns="repeat(3, 1fr)">
                     {board.map((squareValue, index) => {
@@ -115,7 +141,7 @@ export const Board = () => {
                     Turn :{' '}
                     <Text
                         as="span"
-                        bg={turn === '❌' ? '#DF367C' : '#0EA5E9'}
+                        bg={turn === '❌' ? '#0EA5E9' : '#DF367C'}
                         borderRadius="4px"
                         p="4px 24px 8px"
                     >
