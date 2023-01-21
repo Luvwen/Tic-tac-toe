@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react';
 import { PLAYER_OR_IA, TURNS } from '../constants/constants';
 import { Square } from './Square';
@@ -15,8 +15,6 @@ export const Board = () => {
     const [openSelectPlayerModal, setOpenSelectPlayerModal] = useState(true);
     const [playerOrIa, setPlayerOrIa] = useState(PLAYER_OR_IA.player);
 
-    console.log(playerOrIa);
-
     const handleResetGame = () => {
         resetBoardTurnAndWinner();
         setAmountOfWins([]);
@@ -31,7 +29,9 @@ export const Board = () => {
     };
 
     const handleUpdateBoard = (index) => {
-        if (board[index] !== null || winner === true) return;
+        if (board[index] !== null || winner === true || playerOrIa === 'ia') {
+            return;
+        }
 
         const newBoard = [...board];
         newBoard[index] = turn;
@@ -72,6 +72,71 @@ export const Board = () => {
         resetBoardTurnAndWinner();
     };
 
+    const handlePlayerVsIaTurn = (index) => {
+        const isPlayerTurn =
+            board.filter((square) => square !== null).length % 2 === 0;
+        if (isPlayerTurn && board[index] === null) {
+            const newBoard = [...board];
+            newBoard[index] = '❌';
+            setBoard(newBoard);
+            const newTurn = '⚪';
+            setTurn(newTurn);
+        }
+        const newWinner = getWinner(board);
+        const draw = board.every((square) => square !== null);
+        if (newWinner) {
+            // Winner
+            console.log(turn);
+            setWinner(true);
+        } else if (draw && !newWinner) {
+            // Draw
+            setWinner(false);
+        }
+    };
+
+    useEffect(() => {
+        if (winner !== null && turn !== '⚪') return;
+
+        const newWinner = getWinner(board);
+        const draw = board.every((square) => square !== null);
+
+        if (newWinner) {
+            // Winner
+            console.log(turn);
+            setWinner(true);
+        } else if (draw && !newWinner) {
+            // Draw
+            setWinner(false);
+        } else {
+            setTimeout(() => {
+                const isIaTurn =
+                    board.filter((square) => square !== null).length % 2 === 1;
+
+                if (isIaTurn && playerOrIa === 'ia' && winner === null) {
+                    const putComputerAt = (index) => {
+                        const newSquares = [...board];
+                        newSquares[index] = '⚪';
+                        setBoard([...newSquares]);
+                    };
+                    const emptySquares = board
+                        .map((square, index) =>
+                            square === null ? index : null
+                        )
+                        .filter((value) => value !== null);
+
+                    const randomIndex =
+                        emptySquares[
+                            Math.ceil(Math.random() * emptySquares.length)
+                        ];
+
+                    putComputerAt(randomIndex);
+                    const newTurn = '❌';
+                    setTurn(newTurn);
+                }
+            }, 250);
+        }
+    }, [board]);
+
     const { totalOfWinsFromX, totalOfWinsFromO, totalOfDraws } =
         getAmountOfWins(amountOfWins);
 
@@ -108,7 +173,10 @@ export const Board = () => {
                             Player ❌: {totalOfWinsFromX}
                         </Heading>
                         <Heading fontSize={['2xl', '3xl']} mb={'0'}>
-                            Player ⚪: {totalOfWinsFromO}
+                            {playerOrIa === 'player'
+                                ? 'Player ⚪'
+                                : 'Computer ⚪'}
+                            : {totalOfWinsFromO}
                         </Heading>
                     </Stack>
                     <Heading
@@ -122,9 +190,11 @@ export const Board = () => {
                     {board.map((squareValue, index) => {
                         return (
                             <Square
+                                handlePlayerVsIaTurn={handlePlayerVsIaTurn}
                                 handleUpdateBoard={handleUpdateBoard}
                                 index={index}
                                 key={index}
+                                playerOrIa={playerOrIa}
                                 turn={turn}
                             >
                                 {squareValue}
