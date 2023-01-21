@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react';
-import {
-    PLAYER_OR_IA,
-    TURNS,
-    WINNING_COMBINATIONS,
-} from '../constants/constants';
+import { PLAYER_OR_IA, TURNS } from '../constants/constants';
 import { Square } from './Square';
 import { WinnerModal } from './WinnerModal';
 import { SelectOponentModal } from './SelectOponentModal';
+import { getWinner } from '../utils/getWinner';
+import { getAmountOfWins } from '../utils/getAmountOfWins';
 
 export const Board = () => {
     const [board, setBoard] = useState(Array(9).fill(null));
@@ -17,15 +15,21 @@ export const Board = () => {
     const [openSelectPlayerModal, setOpenSelectPlayerModal] = useState(true);
     const [playerOrIa, setPlayerOrIa] = useState(PLAYER_OR_IA.player);
 
+    console.log(playerOrIa);
+
     const handleResetGame = () => {
-        setBoard(Array(9).fill(null));
-        setTurn(TURNS.x);
-        setWinner(null);
+        resetBoardTurnAndWinner();
         setAmountOfWins([]);
         setPlayerOrIa(PLAYER_OR_IA.player);
         setOpenSelectPlayerModal(true);
     };
-    console.log(playerOrIa);
+
+    const resetBoardTurnAndWinner = () => {
+        setBoard(Array(9).fill(null));
+        setTurn(TURNS.x);
+        setWinner(null);
+    };
+
     const handleUpdateBoard = (index) => {
         if (board[index] !== null || winner === true) return;
 
@@ -36,7 +40,7 @@ export const Board = () => {
         const newTurn = turn === '❌' ? '⚪' : '❌';
         setTurn(newTurn);
 
-        const newWinner = handleWinner(newBoard);
+        const newWinner = getWinner(newBoard);
         const draw = newBoard.every((square) => square !== null);
 
         if (newWinner) {
@@ -46,21 +50,6 @@ export const Board = () => {
             // Draw
             setWinner(false);
         }
-    };
-
-    const handleWinner = (newBoard) => {
-        for (const combination of WINNING_COMBINATIONS) {
-            const [a, b, c] = combination;
-            if (
-                newBoard[a] &&
-                newBoard[a] === newBoard[b] &&
-                newBoard[a] === newBoard[c]
-            ) {
-                return newBoard[a];
-            }
-        }
-
-        return null;
     };
 
     const handleNewGame = (winner, turn) => {
@@ -78,19 +67,13 @@ export const Board = () => {
             const newAmountOfDraws = [...amountOfWins];
             newAmountOfDraws.push('draw');
             setAmountOfWins(newAmountOfDraws);
-            setBoard(Array(9).fill(null));
-            setTurn(TURNS.x);
-            setWinner(null);
+            resetBoardTurnAndWinner();
         }
-        setBoard(Array(9).fill(null));
-        setTurn(TURNS.x);
-        setWinner(null);
+        resetBoardTurnAndWinner();
     };
-    const totalOfWinsFromX = amountOfWins.filter((x) => x === '❌').length;
 
-    const totalOfWinsFromO = amountOfWins.filter((o) => o === '⚪').length;
-
-    const totalOfDraws = amountOfWins.filter((draw) => draw === 'draw').length;
+    const { totalOfWinsFromX, totalOfWinsFromO, totalOfDraws } =
+        getAmountOfWins(amountOfWins);
 
     return (
         <Box
