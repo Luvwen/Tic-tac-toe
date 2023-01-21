@@ -33,7 +33,7 @@ export const WinnerModal = ({
                             as="span"
                             color={turn === '❌' ? '#DF367C' : '#0EA5E9'}
                         >
-                            {turn === '⚪' ? '❌' : '⚪'}
+                            {turn === '❌' ? '⚪' : '❌'}
                         </Text>{' '}
                         wins!
                     </Heading>

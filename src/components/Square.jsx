@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Box } from '@chakra-ui/react';
 
-export const Square = ({ children, index, handleUpdateBoard, turn }) => {
+export const Square = ({
+    children,
+    index,
+    handleUpdateBoard,
+    handlePlayerVsIaTurn,
+    playerOrIa,
+    turn,
+}) => {
     const [hover, setHover] = useState(false);
     const styles = [
         '0 3px 3px 0',
@@ -26,8 +33,13 @@ export const Square = ({ children, index, handleUpdateBoard, turn }) => {
             justifyContent="center"
             key={index}
             onClick={() => {
-                handleUpdateBoard(index);
-                setHover(false);
+                if (playerOrIa === 'player') {
+                    handleUpdateBoard(index);
+                    setHover(false);
+                } else {
+                    handlePlayerVsIaTurn(index);
+                    setHover(false);
+                }
             }}
             onMouseEnter={() => {
                 if (children === null) {
