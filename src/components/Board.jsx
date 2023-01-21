@@ -86,7 +86,6 @@ export const Board = () => {
         const draw = board.every((square) => square !== null);
         if (newWinner) {
             // Winner
-            console.log(turn);
             setWinner(true);
         } else if (draw && !newWinner) {
             // Draw
@@ -102,7 +101,6 @@ export const Board = () => {
 
         if (newWinner) {
             // Winner
-            console.log(turn);
             setWinner(true);
         } else if (draw && !newWinner) {
             // Draw
@@ -133,7 +131,7 @@ export const Board = () => {
                     const newTurn = '❌';
                     setTurn(newTurn);
                 }
-            }, 250);
+            }, 100);
         }
     }, [board]);
 

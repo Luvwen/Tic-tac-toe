@@ -42,7 +42,9 @@ export const Square = ({
                 }
             }}
             onMouseEnter={() => {
-                if (children === null) {
+                if (children === null && playerOrIa === 'ia' && turn === '❌') {
+                    setHover(true);
+                } else if (children === null && playerOrIa === 'player') {
                     setHover(true);
                 } else {
                     setHover(false);
