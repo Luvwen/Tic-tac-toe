@@ -140,7 +140,7 @@ export const Board = () => {
 
     return (
         <Box
-            bg={winner !== null ? '#304E4F' : '#1FB2A7'}
+            bg={winner !== null ? 'background' : 'background'}
             height="100vh"
             overflowY="hidden"
             width="100vw"
@@ -159,18 +159,26 @@ export const Board = () => {
                     fontWeight="bold"
                     pb={['25px', '25px', '0', '25px']}
                 >
-                    <Text color="#DF367C">TIC</Text>
-                    <Text color="#FF506E">-</Text>
-                    <Text color="#642CA9">TAC</Text>
-                    <Text color="#FF506E">-</Text>
-                    <Text color="#F29559">TOE</Text>
+                    <Text color="secondary">TIC</Text>
+                    <Text color="white">-</Text>
+                    <Text color="secondary">TAC</Text>
+                    <Text color="white">-</Text>
+                    <Text color="secondary">TOE</Text>
                 </Stack>
                 <Stack alignItems="center" direction={['column']}>
                     <Stack direction={['row']} spacing={['3', '7', '10']}>
-                        <Heading fontSize={['2xl', '3xl']} mb={'0'}>
+                        <Heading
+                            color="primary"
+                            fontSize={['2xl', '3xl']}
+                            mb={'0'}
+                        >
                             Player ❌: {totalOfWinsFromX}
                         </Heading>
-                        <Heading fontSize={['2xl', '3xl']} mb={'0'}>
+                        <Heading
+                            color="primary"
+                            fontSize={['2xl', '3xl']}
+                            mb={'0'}
+                        >
                             {playerOrIa === 'player'
                                 ? 'Player ⚪'
                                 : 'Computer ⚪'}
@@ -178,6 +186,7 @@ export const Board = () => {
                         </Heading>
                     </Stack>
                     <Heading
+                        color="primary"
                         fontSize={['2xl', '3xl']}
                         pb={['30px', '30px', '10px', '0']}
                     >
@@ -207,7 +216,7 @@ export const Board = () => {
                     Turn :{' '}
                     <Text
                         as="span"
-                        bg={turn === '❌' ? '#0EA5E9' : '#DF367C'}
+                        bg="hover"
                         borderRadius="4px"
                         p="4px 24px 8px"
                     >

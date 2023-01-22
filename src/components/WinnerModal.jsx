@@ -12,7 +12,7 @@ export const WinnerModal = ({
         <>
             <Box
                 alignItems="center"
-                bg="#0D9488"
+                bg="primary"
                 borderRadius="24px"
                 display="flex"
                 flexDirection={['column', 'row']}
@@ -25,9 +25,11 @@ export const WinnerModal = ({
             >
                 {/* eslint-disable-next-line */}
                 {!winner ? (
-                    <Heading pb={['0', '55px']}>Draw!</Heading>
+                    <Heading color="light" pb={['0', '55px']}>
+                        Draw!
+                    </Heading>
                 ) : (
-                    <Heading pb={['0', '55px']}>
+                    <Heading color="light" pb={['0', '55px']}>
                         Player{' '}
                         <Text
                             as="span"
@@ -47,7 +49,7 @@ export const WinnerModal = ({
                 >
                     <Button
                         _hover={{
-                            bg: '#DF367C',
+                            bg: 'hover',
                         }}
                         bg="#0EA5E9"
                         fontSize={['xl', '2xl']}
@@ -61,7 +63,7 @@ export const WinnerModal = ({
                     </Button>
                     <Button
                         _hover={{
-                            bg: '#DF367C',
+                            bg: 'hover',
                         }}
                         bg="#0EA5E9"
                         fontSize={['xl', '2xl']}

@@ -24,7 +24,7 @@ export const Square = ({
     return (
         <Box
             alignItems="center"
-            border="solid #F29559"
+            border="solid #CBD5E1"
             borderWidth={styles[index]}
             cursor="pointer"
             display="flex"

@@ -9,7 +9,7 @@ export const SelectOponentModal = ({
     return (
         <Box
             alignItems="center"
-            bg="#0D9488"
+            bg="primary"
             borderRadius="24px"
             display="flex"
             flexDirection={['column', 'row']}
@@ -23,7 +23,7 @@ export const SelectOponentModal = ({
             <Stack direction={['column', 'row', 'row']} spacing="5">
                 <Button
                     _hover={{
-                        bg: '#DF367C',
+                        bg: 'hover',
                     }}
                     bg="#0EA5E9"
                     fontSize={['xl', '2xl']}
@@ -37,7 +37,7 @@ export const SelectOponentModal = ({
                 </Button>
                 <Button
                     _hover={{
-                        bg: '#DF367C',
+                        bg: 'hover',
                     }}
                     bg="#0EA5E9"
                     fontSize={['xl', '2xl']}
