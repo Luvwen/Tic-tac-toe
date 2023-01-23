@@ -1,22 +1,22 @@
 ## About the project
 
 Hi! Im Santiago Baliño, a web developer from Buenos Aires (Argentina) that loves learn and put into practice new things!
-This game was made from scratch with no guidelines (except some tiny help when i need to create the IA logic 😅). 
+This game was made from scratch with no guidelines (except some tiny help when i need to create the IA logic 😅).
 Hope you enjoy this little project because i surely do when i was making it!
 
 ## Technologies 🛠
 
-- HTML
-- Chakra UI
-- Javascript
-- React
+-   HTML
+-   Chakra UI
+-   Javascript
+-   React
 
 ## Features
 
-- Mobile design and fully responsive.
-- Possibility of switching between two gamemodes (Player2/Computer).
-- UI made with Chakra UI.
-- Hover effect on player turn in desktop viewport for visual guidance.
+-   Mobile design and fully responsive.
+-   Possibility of switching between two gamemodes (Player2/Computer).
+-   UI made with Chakra UI.
+-   Hover effect on player turn in desktop viewport for visual guidance.
 
 ## Deploy
 
@@ -46,10 +46,11 @@ Hope you enjoy this little project because i surely do when i was making it!
 
 ## Todo ☕
 
-- [x] Change color palette
-- [ ] Adapt to tablet size devices
-- [ ] Make unit tests using Jest
-- [ ] Migrate to Typescript
+-   [x] Change color palette
+-   [ ] Adapt to tablet size devices
+-   [ ] Make unit tests using Jest
+-   [ ] Migrate to Typescript
+-   [ ] Add the rules of the game
 
 ## Uso / Instalación
 
