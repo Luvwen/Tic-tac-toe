@@ -50,7 +50,7 @@ Hope you enjoy this little project because i surely do when i was making it!
 -   [ ] Adapt to tablet size devices
 -   [ ] Make unit tests using Jest
 -   [ ] Migrate to Typescript
--   [ ] Add the rules of the game
+-   [x] Add the rules of the game
 
 ## Uso / Instalación
 
