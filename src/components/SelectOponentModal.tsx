@@ -1,11 +1,17 @@
 import { Box, Button, ListItem, Stack, UnorderedList } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { PLAYER_OR_IA } from '../constants/constants';
+import { useState } from 'react';
+
+export type PlayerOrIa = 'player' | 'ia';
+
+interface SelectOponentModalProps {
+    setOpenSelectPlayerModal: (boolean: boolean) => void;
+    setPlayerOrIa: (playerOrIa: PlayerOrIa) => void;
+}
 
 export const SelectOponentModal = ({
     setOpenSelectPlayerModal,
     setPlayerOrIa,
-}) => {
+}: SelectOponentModalProps) => {
     const [openInstructionsModal, setOpenInstructionsModal] = useState(false);
     return (
         <Box
@@ -69,7 +75,7 @@ export const SelectOponentModal = ({
                     fontWeight="bold"
                     onClick={() => {
                         setOpenSelectPlayerModal(false);
-                        setPlayerOrIa(PLAYER_OR_IA.ia);
+                        setPlayerOrIa('ia');
                     }}
                     p={['10px', '6px 24px']}
                     size="lg"

@@ -1,5 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box } from '@chakra-ui/react';
+import { Turns } from './Board';
+import { PlayerOrIa } from './SelectOponentModal';
+
+interface SquareProps {
+    children: null | Turns;
+    index: number;
+    handleUpdateBoard: (index: number) => void;
+    handlePlayerVsIaTurn: (index: number) => void;
+    playerOrIa: PlayerOrIa;
+    turn: Turns;
+}
 
 export const Square = ({
     children,
@@ -8,8 +19,8 @@ export const Square = ({
     handlePlayerVsIaTurn,
     playerOrIa,
     turn,
-}) => {
-    const [hover, setHover] = useState(false);
+}: SquareProps) => {
+    const [hover, setHover] = useState<boolean>(false);
     const styles = [
         '0 3px 3px 0',
         '0 3px 3px 3px',

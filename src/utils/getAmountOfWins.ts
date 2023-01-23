@@ -1,4 +1,4 @@
-export const getAmountOfWins = (amountOfWins) => {
+export const getAmountOfWins = (amountOfWins: string[]) => {
     const totalOfWinsFromX = amountOfWins.filter((x) => x === '❌').length;
 
     const totalOfWinsFromO = amountOfWins.filter((o) => o === '⚪').length;
