@@ -1,34 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react';
-import { PLAYER_OR_IA, TURNS } from '../constants/constants';
 import { Square } from './Square';
 import { WinnerModal } from './WinnerModal';
-import { SelectOponentModal } from './SelectOponentModal';
+import { PlayerOrIa, SelectOponentModal } from './SelectOponentModal';
 import { getWinner } from '../utils/getWinner';
 import { getAmountOfWins } from '../utils/getAmountOfWins';
 
+export type Turns = '❌' | '⚪';
+
 export const Board = () => {
-    const [board, setBoard] = useState(Array(9).fill(null));
-    const [turn, setTurn] = useState(TURNS.x);
-    const [winner, setWinner] = useState(null);
-    const [amountOfWins, setAmountOfWins] = useState([]);
-    const [openSelectPlayerModal, setOpenSelectPlayerModal] = useState(true);
-    const [playerOrIa, setPlayerOrIa] = useState(PLAYER_OR_IA.player);
+    const [board, setBoard] = useState<(null | Turns)[]>(Array(9).fill(null));
+    const [turn, setTurn] = useState<Turns>('❌');
+    const [winner, setWinner] = useState<boolean | null>(null);
+    const [amountOfWins, setAmountOfWins] = useState<string[]>([]);
+    const [openSelectPlayerModal, setOpenSelectPlayerModal] =
+        useState<boolean>(true);
+    const [playerOrIa, setPlayerOrIa] = useState<PlayerOrIa>('player');
 
     const handleResetGame = () => {
         resetBoardTurnAndWinner();
         setAmountOfWins([]);
-        setPlayerOrIa(PLAYER_OR_IA.player);
+        setPlayerOrIa('player');
         setOpenSelectPlayerModal(true);
     };
 
     const resetBoardTurnAndWinner = () => {
         setBoard(Array(9).fill(null));
-        setTurn(TURNS.x);
+        setTurn('❌');
         setWinner(null);
     };
 
-    const handleUpdateBoard = (index) => {
+    const handleUpdateBoard = (index: number) => {
         if (board[index] !== null || winner === true || playerOrIa === 'ia') {
             return;
         }
@@ -52,7 +54,7 @@ export const Board = () => {
         }
     };
 
-    const handleNewGame = (winner, turn) => {
+    const handleNewGame = (winner: boolean | null, turn: Turns) => {
         if (winner) {
             const getWinner = turn === '❌' ? '⚪' : '❌';
             const newAmountOfWins = [...amountOfWins];
@@ -72,7 +74,7 @@ export const Board = () => {
         resetBoardTurnAndWinner();
     };
 
-    const handlePlayerVsIaTurn = (index) => {
+    const handlePlayerVsIaTurn = (index: number) => {
         const isPlayerTurn =
             board.filter((square) => square !== null).length % 2 === 0;
         if (isPlayerTurn && board[index] === null) {
@@ -111,7 +113,7 @@ export const Board = () => {
                     board.filter((square) => square !== null).length % 2 === 1;
 
                 if (isIaTurn && playerOrIa === 'ia' && winner === null) {
-                    const putComputerAt = (index) => {
+                    const putComputerAt = (index: number) => {
                         const newSquares = [...board];
                         newSquares[index] = '⚪';
                         setBoard([...newSquares]);
@@ -127,7 +129,9 @@ export const Board = () => {
                             Math.ceil(Math.random() * emptySquares.length)
                         ];
 
-                    putComputerAt(randomIndex);
+                    if (randomIndex !== null) {
+                        putComputerAt(randomIndex);
+                    }
                     const newTurn = '❌';
                     setTurn(newTurn);
                 }
