@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box } from '@chakra-ui/react';
-import { Turns } from './Board';
-import { PlayerOrIa } from './SelectOponentModal';
+import { PlayerOrIa, Turns } from '../types/types';
 
 interface SquareProps {
     children: null | Turns;
