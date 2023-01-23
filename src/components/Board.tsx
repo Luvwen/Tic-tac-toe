@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react';
 import { Square } from './Square';
 import { WinnerModal } from './WinnerModal';
-import { PlayerOrIa, SelectOponentModal } from './SelectOponentModal';
+import { SelectOponentModal } from './SelectOponentModal';
 import { getWinner } from '../utils/getWinner';
 import { getAmountOfWins } from '../utils/getAmountOfWins';
-
-export type Turns = '❌' | '⚪';
+import { PlayerOrIa, Turns } from '../types/types';
 
 export const Board = () => {
     const [board, setBoard] = useState<(null | Turns)[]>(Array(9).fill(null));
@@ -17,18 +16,7 @@ export const Board = () => {
         useState<boolean>(true);
     const [playerOrIa, setPlayerOrIa] = useState<PlayerOrIa>('player');
 
-    const handleResetGame = () => {
-        resetBoardTurnAndWinner();
-        setAmountOfWins([]);
-        setPlayerOrIa('player');
-        setOpenSelectPlayerModal(true);
-    };
-
-    const resetBoardTurnAndWinner = () => {
-        setBoard(Array(9).fill(null));
-        setTurn('❌');
-        setWinner(null);
-    };
+    // Handle the turn of the player '❌' and player '⚪'
 
     const handleUpdateBoard = (index: number) => {
         if (board[index] !== null || winner === true || playerOrIa === 'ia') {
@@ -54,6 +42,8 @@ export const Board = () => {
         }
     };
 
+    // Updates the amount of wins/draws in the amountOfWins state and reset the board
+
     const handleNewGame = (winner: boolean | null, turn: Turns) => {
         if (winner) {
             const getWinner = turn === '❌' ? '⚪' : '❌';
@@ -74,6 +64,8 @@ export const Board = () => {
         resetBoardTurnAndWinner();
     };
 
+    // Handle the player '❌' turn against the IA
+
     const handlePlayerVsIaTurn = (index: number) => {
         const isPlayerTurn =
             board.filter((square) => square !== null).length % 2 === 0;
@@ -84,16 +76,9 @@ export const Board = () => {
             const newTurn = '⚪';
             setTurn(newTurn);
         }
-        const newWinner = getWinner(board);
-        const draw = board.every((square) => square !== null);
-        if (newWinner) {
-            // Winner
-            setWinner(true);
-        } else if (draw && !newWinner) {
-            // Draw
-            setWinner(false);
-        }
     };
+
+    // Handle the IA turn and the winner of the match
 
     useEffect(() => {
         if (winner !== null && turn !== '⚪') return;
@@ -138,6 +123,25 @@ export const Board = () => {
             }, 100);
         }
     }, [board]);
+
+    // Reset the gamemode and the scores
+
+    const handleResetGame = () => {
+        resetBoardTurnAndWinner();
+        setAmountOfWins([]);
+        setPlayerOrIa('player');
+        setOpenSelectPlayerModal(true);
+    };
+
+    // Reset the board and starts a new game
+
+    const resetBoardTurnAndWinner = () => {
+        setBoard(Array(9).fill(null));
+        setTurn('❌');
+        setWinner(null);
+    };
+
+    // Get the amount of wins from getAmountOfWins function
 
     const { totalOfWinsFromX, totalOfWinsFromO, totalOfDraws } =
         getAmountOfWins(amountOfWins);

@@ -1,7 +1,6 @@
 import { Box, Button, ListItem, Stack, UnorderedList } from '@chakra-ui/react';
 import { useState } from 'react';
-
-export type PlayerOrIa = 'player' | 'ia';
+import { PlayerOrIa } from '../types/types';
 
 interface SelectOponentModalProps {
     setOpenSelectPlayerModal: (boolean: boolean) => void;

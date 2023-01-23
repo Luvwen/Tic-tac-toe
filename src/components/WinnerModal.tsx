@@ -1,5 +1,5 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react';
-import { Turns } from './Board';
+import { Turns } from '../types/types';
 
 interface WinnerModalProps {
     winner: boolean | null;
