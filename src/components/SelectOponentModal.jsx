@@ -1,26 +1,51 @@
-import { Box, Button, Stack } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Button, ListItem, Stack, UnorderedList } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { PLAYER_OR_IA } from '../constants/constants';
 
 export const SelectOponentModal = ({
     setOpenSelectPlayerModal,
     setPlayerOrIa,
 }) => {
+    const [openInstructionsModal, setOpenInstructionsModal] = useState(false);
     return (
         <Box
             alignItems="center"
             bg="primary"
             borderRadius="24px"
             display="flex"
-            flexDirection={['column', 'row']}
-            height={['25vh', '20vh']}
-            justifyContent={['space-evenly', 'center']}
+            flexDirection={['column', 'column']}
+            height={openInstructionsModal ? ['80vh', '30vh'] : ['25vh', '20vh']}
+            justifyContent={['space-evenly', 'space-evenly']}
+            pl="15px"
             position="absolute"
-            top={['35%']}
-            width={['80vw', '30vw']}
+            top={openInstructionsModal ? ['12%', '35%'] : ['35%']}
+            width={openInstructionsModal ? ['90vw', '55vw'] : ['80vw', '30vw']}
             zIndex="15"
         >
-            <Stack direction={['column', 'row', 'row']} spacing="5">
+            {openInstructionsModal && (
+                <Stack>
+                    <UnorderedList pr="15px" spacing="2">
+                        <ListItem fontSize="xl" fontWeight="bold">
+                            Players must take turns, making only 1 mark with
+                            each turn.
+                        </ListItem>
+                        <ListItem fontSize="xl" fontWeight="bold">
+                            Marks can only be placed in empty squares, and once
+                            it is placed, it is permanent.
+                        </ListItem>
+                        <ListItem fontSize="xl" fontWeight="bold">
+                            The winner is the first player to get 3 of their
+                            marks in a straight line (the line can be positioned
+                            diagonally, vertically, or horizontally).
+                        </ListItem>
+                        <ListItem fontSize="xl" fontWeight="bold">
+                            If neither player has a straight line of 3 marks, it
+                            is considered a tie.
+                        </ListItem>
+                    </UnorderedList>
+                </Stack>
+            )}
+            <Stack direction={['row']} spacing="7">
                 <Button
                     _hover={{
                         bg: 'hover',
@@ -53,6 +78,24 @@ export const SelectOponentModal = ({
                     Versus IA
                 </Button>
             </Stack>
+            {!openInstructionsModal && (
+                <Button
+                    _hover={{
+                        bg: 'hover',
+                    }}
+                    bg="#0EA5E9"
+                    fontSize={['xl', '2xl']}
+                    fontWeight="bold"
+                    onClick={() => {
+                        setOpenInstructionsModal(true);
+                    }}
+                    p={['10px', '6px 24px']}
+                    size="lg"
+                    variant="ghost"
+                >
+                    Instructions
+                </Button>
+            )}
         </Box>
     );
 };
