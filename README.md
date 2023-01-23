@@ -49,7 +49,7 @@ Hope you enjoy this little project because i surely do when i was making it!
 -   [x] Change color palette
 -   [ ] Adapt to tablet size devices
 -   [ ] Make unit tests using Jest
--   [ ] Migrate to Typescript
+-   [x] Migrate to Typescript
 -   [x] Add the rules of the game
 
 ## Uso / Instalación
